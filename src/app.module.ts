@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './modules/users/users.module';
 import { env } from './shared/config/env';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { env } from './shared/config/env';
       synchronize: true,
       autoLoadEntities: true,
     }),
+    AuthModule,
   ],
   controllers: [],
   providers: [],

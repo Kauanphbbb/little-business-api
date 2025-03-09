@@ -25,4 +25,13 @@ export class UsersService {
   remove(id: string) {
     return `This action removes a #${id} user`;
   }
+
+  findOneByEmail(email: string) {
+    return {
+      id: '1',
+      name: 'John Doe',
+      email,
+      password: '123456',
+    };
+  }
 }
