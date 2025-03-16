@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compare } from 'bcryptjs';
+import { HashService } from 'src/shared/hash/hash.service';
 import { UsersService } from '../users/users.service';
 import { AuthenticateDto } from './dto/authenticate.dto';
 import { RegisterDto } from './dto/register.dto';
@@ -10,6 +10,7 @@ export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly hashService: HashService,
   ) {}
 
   async authenticate(authenticateDto: AuthenticateDto) {
@@ -21,7 +22,10 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const passwordMatch = await compare(password, user.password);
+    const passwordMatch = await this.hashService.comparePassword(
+      password,
+      user.password,
+    );
 
     if (!passwordMatch) {
       throw new UnauthorizedException('Invalid credentials');
@@ -44,10 +48,6 @@ export class AuthService {
     const token = await this.jwtService.signAsync({
       sub: userId,
     });
-
-    if (typeof token !== 'string') {
-      throw new UnauthorizedException('Error generating access token');
-    }
 
     return token;
   }
