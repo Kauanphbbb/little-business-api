@@ -1,18 +1,32 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { HashService } from 'src/shared/hash/hash.service';
+import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
 describe('UsersService', () => {
-  let service: UsersService;
+  let sut: UsersService;
+  let mockUserRepository: Repository<User>;
+  let mockHashService: HashService;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService],
-    }).compile();
+  beforeEach(() => {
+    // Mock do UserRepository
+    mockUserRepository = {
+      findOneBy: jest.fn(),
+      create: jest.fn(),
+      save: jest.fn(),
+    } as unknown as Repository<User>; // Cast para Repository<User>
 
-    service = module.get<UsersService>(UsersService);
+    // Mock do HashService
+    mockHashService = {
+      hashPassword: jest.fn(),
+      comparePassword: jest.fn(),
+    };
+
+    // Cria uma instância do UsersService com os mocks
+    sut = new UsersService(mockUserRepository, mockHashService);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
+    expect(sut).toBeDefined();
   });
 });
