@@ -13,13 +13,13 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     // Mock do UsersService
-    mockUsersService.findOneByEmail = jest.fn().mockClear();
+    mockUsersService.findOneByEmail = jest.fn();
 
     // Mock do JwtService
-    mockJwtService.signAsync = jest.fn().mockClear();
+    mockJwtService.signAsync = jest.fn();
 
     // Mock do HashService
-    hashService.comparePassword = jest.fn().mockClear();
+    hashService.comparePassword = jest.fn();
 
     // Cria uma instância do AuthService com os mocks
     sut = new AuthService(mockUsersService, mockJwtService, hashService);
