@@ -1,7 +1,7 @@
 import { HashService } from 'src/shared/hash/hash.service';
 import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
-import { UsersService } from './users.service';
+import { User } from '../entities/user.entity';
+import { UsersService } from '../users.service';
 
 describe('UsersService', () => {
   let sut: UsersService;
