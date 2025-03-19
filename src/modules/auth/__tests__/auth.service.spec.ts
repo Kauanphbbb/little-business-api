@@ -1,9 +1,9 @@
 import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { UsersService } from 'src/modules/users/users.service';
 import { HashService } from 'src/shared/hash/hash.service';
-import { UsersService } from '../users/users.service';
-import { AuthService } from './auth.service';
-import { AuthenticateDto } from './dto/authenticate.dto';
+import { AuthService } from '../auth.service';
+import { AuthenticateDto } from '../dto/authenticate.dto';
 
 describe('AuthService', () => {
   let sut: AuthService;
