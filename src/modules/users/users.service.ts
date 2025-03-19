@@ -33,7 +33,7 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
-  findOneByEmail(email: string) {
+  async findOneByEmail(email: string) {
     return this.userRepository.findOneBy({ email });
   }
 }
